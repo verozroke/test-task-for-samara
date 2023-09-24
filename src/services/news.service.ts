@@ -5,7 +5,7 @@ export const newsServices = {
   async search({ query, sortBy, perPage }: {
     query: string, sortBy: sortBySelectOption, perPage: number
   }) {
-    const { data } = await axios.get(`https://content.guardianapis.com/search?q=${query}&show-fields=thumbnail&order-by=${sortBy}&page-size=${perPage}&api-key=${process.env.GUARDIAN_API_KEY}`, {
+    const { data } = await axios.get(`https://content.guardianapis.com/search?q=${query}&show-fields=thumbnail&order-by=${sortBy}&page-size=${perPage}&api-key=${process.env.NEXT_PUBLIC_GUARDIAN_API_KEY}`, {
       headers: {
         'Content-Type': 'application/json'
       }
@@ -13,7 +13,7 @@ export const newsServices = {
     return data
   },
   async getNewsData(newsId: string) {
-    const { data } = await axios.get(`https://content.guardianapis.com/${newsId}?api-key=${process.env.GUARDIAN_API_KEY}&show-fields=thumbnail,body,trailText,headline`, {
+    const { data } = await axios.get(`https://content.guardianapis.com/${newsId}?api-key=${process.env.NEXT_PUBLIC_GUARDIAN_API_KEY}&show-fields=thumbnail,body,trailText,headline`, {
       headers: {
         'Content-Type': 'application/json'
       }

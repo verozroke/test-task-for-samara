@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { SerializedError, createSlice } from "@reduxjs/toolkit";
 import { search } from "./news.actions";
 import { sortBySelectOption } from "@/components/screens/home/search-bar/SearchBarCard";
 
@@ -7,7 +7,7 @@ export const newsSlice = createSlice({
   name: 'news',
   initialState: {
     isLoading: false,
-    error: null,
+    error: null as unknown as SerializedError,
     sortBy: 'relevance',
     perPage: 10,
     news: [],
@@ -27,7 +27,6 @@ export const newsSlice = createSlice({
       })
       .addCase(search.fulfilled, (state, { payload }) => {
         state.isLoading = false
-        console.log(payload);
 
         state.news = payload.response.results
       })

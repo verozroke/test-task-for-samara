@@ -4,7 +4,7 @@ import { ChangeEvent, FC, useState } from 'react'
 import styles from './SearchBarCard.module.scss'
 import { ArrowDownUp, LayoutTemplate, Search } from 'lucide-react'
 import { useActions } from '@/hooks/useActions'
-import { useSelector } from 'react-redux'
+import { useTypedSelector } from '@/hooks/useTypedSelector'
 
 interface SearchBarCardProps {
 
@@ -18,11 +18,11 @@ const SearchBarCard: FC<SearchBarCardProps> = ({ }) => {
 
   // const [sortBy, setSortBy] = useState('newest');
   // const [pageSize, setPageSize] = useState(10);
-  const { sortBy, perPage } = useSelector(state => state.news)
+  const { sortBy, perPage } = useTypedSelector(state => state.news)
   const { search, changeSortBy, changePerPage } = useActions()
 
   const getResults = () => {
-    search({ query: queryInput.trim(), sortBy, perPage })
+    search({ query: queryInput.trim(), sortBy: sortBy as sortBySelectOption, perPage })
   }
 
   const handleSortChange = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -33,7 +33,7 @@ const SearchBarCard: FC<SearchBarCardProps> = ({ }) => {
 
   const handlePageSizeChange = (event: ChangeEvent<HTMLSelectElement>) => {
     changePerPage(event.target.value as unknown as number)
-    search({ query: queryInput.trim(), sortBy, perPage: event.target.value as unknown as number })
+    search({ query: queryInput.trim(), sortBy: sortBy as sortBySelectOption, perPage: event.target.value as unknown as number })
   };
 
   return <div className={styles.card}>
